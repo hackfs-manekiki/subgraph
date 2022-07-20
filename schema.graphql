@@ -1,6 +1,19 @@
-type Gravatar @entity {
+type Vault @entity {
   id: ID!
   owner: Bytes!
-  displayName: String!
-  imageUrl: String!
+  admins: [Admin!] @derivedFrom(field: "vault")
+  approvers: [Approver!] @derivedFrom(field: "vault")
+}
+
+type Admin @entity {
+    id: String!
+    address: Bytes!
+    vault: Vault!
+}
+
+type Approver @entity {
+    id: String!
+    approver: Bytes!
+    budget: BigInt!
+    vault: Vault!
 }
