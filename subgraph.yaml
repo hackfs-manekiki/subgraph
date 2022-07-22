@@ -45,16 +45,16 @@ templates:
         - name: Factory
           file: ./abis/Factory.json
       eventHandlers:
-        - event: AddAdmin(indexed address)
+        - event: AddAdmin(indexed address,string)
           handler: handleAddAdmin
         - event: RemoveAdmin(indexed address)
           handler: handleRemoveAdmin
-        - event: AddApprover(indexed address,uint256)
+        - event: AddApprover(indexed address,string,uint256)
           handler: handleAddApprover
         - event: RemoveApprover(indexed address)
           handler: handleRemoveApprover
         - event: RequestApproval(uint256,indexed address,uint256,uint256)
           handler: handleNewRequest
-        # - event: ApprovalExecute(uint256,indexed address,uint256,uint256)
-        #   handler: handleExecuteRequest
+        - event: ApprovalExecute(uint256,indexed address,uint256,uint256)
+          handler: handleExecuteRequest
       file: ./src/vault.ts

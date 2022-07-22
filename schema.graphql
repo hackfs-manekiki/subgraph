@@ -9,12 +9,14 @@ type Vault @entity {
 type Admin @entity {
     id: String!
     address: Bytes!
+    name: String!
     vault: Vault!
 }
 
 type Approver @entity {
     id: String!
     address: Bytes!
+    name: String!
     budget: BigInt!
     vault: Vault!
 }
@@ -22,7 +24,6 @@ type Approver @entity {
 type Request @entity {
     id: String!
     requestId: BigInt!
-    requestType: RequestType
     requester: Bytes!
     isExecuted: Boolean!
     value: BigInt!
@@ -30,9 +31,4 @@ type Request @entity {
     vault: Vault!
     executor: Bytes
     data: Bytes
-}
-
-enum RequestType {
-    TRANSFER,
-    EXECUTE
 }

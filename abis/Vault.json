@@ -2,36 +2,77 @@
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "name",
-        "type": "string"
-      },
-      {
         "internalType": "address",
         "name": "_owner",
         "type": "address"
       },
       {
-        "internalType": "address[]",
-        "name": "_admins",
-        "type": "address[]"
-      },
-      {
         "components": [
           {
-            "internalType": "address",
-            "name": "approver",
-            "type": "address"
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
           },
           {
-            "internalType": "uint256",
-            "name": "budget",
-            "type": "uint256"
+            "components": [
+              {
+                "internalType": "address",
+                "name": "member",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct IVault.Member[]",
+            "name": "admins",
+            "type": "tuple[]"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "approver",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "budget",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct IVault.Approver[]",
+            "name": "approvers",
+            "type": "tuple[]"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "member",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct IVault.Member[]",
+            "name": "members",
+            "type": "tuple[]"
           }
         ],
-        "internalType": "struct IVault.Approver[]",
-        "name": "_approvers",
-        "type": "tuple[]"
+        "internalType": "struct IVault.VaultParam",
+        "name": "param",
+        "type": "tuple"
       }
     ],
     "stateMutability": "nonpayable",
@@ -45,6 +86,12 @@
         "internalType": "address",
         "name": "admin",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
       }
     ],
     "name": "AddAdmin",
@@ -61,12 +108,37 @@
       },
       {
         "indexed": false,
+        "internalType": "string",
+        "name": "_approverName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "budget",
         "type": "uint256"
       }
     ],
     "name": "AddApprover",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "member",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "AddMember",
     "type": "event"
   },
   {
@@ -168,6 +240,19 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": true,
+        "internalType": "address",
+        "name": "member",
+        "type": "address"
+      }
+    ],
+    "name": "RemoveMember",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": false,
         "internalType": "uint256",
         "name": "requestId",
@@ -230,6 +315,11 @@
         "internalType": "address",
         "name": "_admin",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_adminName",
+        "type": "string"
       }
     ],
     "name": "addAdmin",
@@ -243,6 +333,11 @@
         "internalType": "address",
         "name": "_approver",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_approverName",
+        "type": "string"
       },
       {
         "internalType": "uint256",

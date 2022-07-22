@@ -1,5 +1,5 @@
 import { Address } from '@graphprotocol/graph-ts'
-import { AddAdmin, AddApprover, RemoveAdmin, RemoveApprover, RequestApproval } from '../generated/templates/Vault/Vault'
+import { AddAdmin, AddApprover, ApprovalExecute, RemoveAdmin, RemoveApprover, RequestApproval } from '../generated/templates/Vault/Vault'
 import { Admin, Approver, Request } from '../generated/schema'
 import { store } from '@graphprotocol/graph-ts'
 
@@ -10,6 +10,7 @@ export function handleAddAdmin(event: AddAdmin): void {
         admin = new Admin(id)
     }
     admin.address = event.params.admin
+    admin.name = event.params.name
     admin.vault = event.address
     admin.save()
 }
@@ -26,6 +27,7 @@ export function handleAddApprover(event: AddApprover): void {
         approver = new Approver(id)
     }
     approver.address = event.params.approver
+    approver.name = event.params._approverName
     approver.budget = event.params.budget
     approver.vault = event.address
     approver.save()
@@ -43,12 +45,23 @@ export function handleNewRequest(event: RequestApproval): void {
         request = new Request(id)
     }
     request.requestId = event.params.requestId
-    request.requestType = 'TRANSFER'
     request.data = event.transaction.input
     request.requester = event.params.requester
     request.value = event.params.value
     request.budget = event.params.budget
     request.isExecuted = false
     request.vault = event.address
+    request.save()
+}
+
+export function handleExecuteRequest(event: ApprovalExecute): void {
+    let id = `${event.address.toHexString()}-${event.params.requestId}`
+    let request = Request.load(id)
+    if (!request) {
+        request = new Request(id)
+    }
+    request.requestId = event.params.requestId
+    request.executor = event.params.executor
+    request.isExecuted = true
     request.save()
 }

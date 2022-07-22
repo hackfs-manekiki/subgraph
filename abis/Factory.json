@@ -62,9 +62,21 @@
             "type": "string"
           },
           {
-            "internalType": "address[]",
+            "components": [
+              {
+                "internalType": "address",
+                "name": "member",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct IVault.Member[]",
             "name": "admins",
-            "type": "address[]"
+            "type": "tuple[]"
           },
           {
             "components": [
@@ -72,6 +84,11 @@
                 "internalType": "address",
                 "name": "approver",
                 "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
               },
               {
                 "internalType": "uint256",
@@ -82,9 +99,26 @@
             "internalType": "struct IVault.Approver[]",
             "name": "approvers",
             "type": "tuple[]"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "member",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct IVault.Member[]",
+            "name": "members",
+            "type": "tuple[]"
           }
         ],
-        "internalType": "struct Factory.VaultParam[]",
+        "internalType": "struct IVault.VaultParam[]",
         "name": "params",
         "type": "tuple[]"
       }
@@ -110,9 +144,21 @@
             "type": "string"
           },
           {
-            "internalType": "address[]",
+            "components": [
+              {
+                "internalType": "address",
+                "name": "member",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct IVault.Member[]",
             "name": "admins",
-            "type": "address[]"
+            "type": "tuple[]"
           },
           {
             "components": [
@@ -120,6 +166,11 @@
                 "internalType": "address",
                 "name": "approver",
                 "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
               },
               {
                 "internalType": "uint256",
@@ -130,9 +181,26 @@
             "internalType": "struct IVault.Approver[]",
             "name": "approvers",
             "type": "tuple[]"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "member",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct IVault.Member[]",
+            "name": "members",
+            "type": "tuple[]"
           }
         ],
-        "internalType": "struct Factory.VaultParam",
+        "internalType": "struct IVault.VaultParam",
         "name": "param",
         "type": "tuple"
       }
