@@ -1,8 +1,9 @@
 type Vault @entity {
-  id: ID!
+  id: Bytes!
+  name: String!
   owner: Bytes!
-  admins: [Admin!] @derivedFrom(field: "vault")
-  approvers: [Approver!] @derivedFrom(field: "vault")
+  admins: [Admin!]! @derivedFrom(field: "vault")
+  approvers: [Approver!]! @derivedFrom(field: "vault")
 }
 
 type Admin @entity {
@@ -13,7 +14,25 @@ type Admin @entity {
 
 type Approver @entity {
     id: String!
-    approver: Bytes!
+    address: Bytes!
     budget: BigInt!
     vault: Vault!
+}
+
+type Request @entity {
+    id: String!
+    requestId: BigInt!
+    requestType: RequestType
+    requester: Bytes!
+    isExecuted: Boolean!
+    value: BigInt!
+    budget: BigInt!
+    vault: Vault!
+    executor: Bytes
+    data: Bytes
+}
+
+enum RequestType {
+    TRANSFER,
+    EXECUTE
 }

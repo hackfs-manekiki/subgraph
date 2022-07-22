@@ -33,6 +33,12 @@
         "type": "address"
       },
       {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
         "indexed": true,
         "internalType": "address",
         "name": "owner",
@@ -51,6 +57,11 @@
       {
         "components": [
           {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
             "internalType": "address[]",
             "name": "admins",
             "type": "address[]"
@@ -68,7 +79,55 @@
                 "type": "uint256"
               }
             ],
-            "internalType": "struct Vault.Approver[]",
+            "internalType": "struct IVault.Approver[]",
+            "name": "approvers",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct Factory.VaultParam[]",
+        "name": "params",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "batchCreateVault",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "vaultAddresses",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "address[]",
+            "name": "admins",
+            "type": "address[]"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "approver",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "budget",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct IVault.Approver[]",
             "name": "approvers",
             "type": "tuple[]"
           }
@@ -81,8 +140,8 @@
     "name": "createVault",
     "outputs": [
       {
-        "internalType": "contract Vault",
-        "name": "vault",
+        "internalType": "address",
+        "name": "vaultAddress",
         "type": "address"
       }
     ],

@@ -2,6 +2,11 @@
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
         "internalType": "address",
         "name": "_owner",
         "type": "address"
@@ -24,7 +29,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct Vault.Approver[]",
+        "internalType": "struct IVault.Approver[]",
         "name": "_approvers",
         "type": "tuple[]"
       }
@@ -62,6 +67,37 @@
       }
     ],
     "name": "AddApprover",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "requestId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "executor",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "budget",
+        "type": "uint256"
+      }
+    ],
+    "name": "ApprovalExecute",
     "type": "event"
   },
   {
@@ -132,6 +168,37 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "requestId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "requester",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "budget",
+        "type": "uint256"
+      }
+    ],
+    "name": "RequestApproval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "issuer",
@@ -151,19 +218,6 @@
       }
     ],
     "name": "TransferEther",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
-      }
-    ],
-    "name": "VaultSetup",
     "type": "event"
   },
   {
@@ -204,12 +258,156 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "requestId",
+        "type": "uint256"
+      }
+    ],
+    "name": "approveRequest",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "isSuccess",
+        "type": "bool"
+      },
+      {
+        "internalType": "bytes",
+        "name": "result",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_approver",
+        "type": "address"
+      }
+    ],
+    "name": "budget",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "approver",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_budget",
+        "type": "uint256"
+      }
+    ],
+    "name": "canApprove",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getName",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getOwner",
+    "outputs": [
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
       }
     ],
-    "name": "admins",
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "requestId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getRequest",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "requester",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "enum IVault.RequestType",
+            "name": "requestType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "budget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bytes",
+            "name": "data",
+            "type": "bytes"
+          }
+        ],
+        "internalType": "struct IVault.Request",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_admin",
+        "type": "address"
+      }
+    ],
+    "name": "isAdmin",
     "outputs": [
       {
         "internalType": "bool",
@@ -223,12 +421,25 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "requestId",
+        "type": "uint256"
       }
     ],
-    "name": "approvers",
+    "name": "isExecuted",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nextRequestId",
     "outputs": [
       {
         "internalType": "uint256",
@@ -237,40 +448,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "value",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes",
-        "name": "data",
-        "type": "bytes"
-      },
-      {
-        "internalType": "uint256",
-        "name": "budget",
-        "type": "uint256"
-      }
-    ],
-    "name": "execute",
-    "outputs": [
-      {
-        "internalType": "bytes",
-        "name": "result",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -322,24 +499,40 @@
   {
     "inputs": [
       {
-        "internalType": "address payable",
+        "internalType": "enum IVault.RequestType",
+        "name": "requestType",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address",
         "name": "to",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "amount",
+        "name": "value",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "budget",
+        "name": "_budget",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "requestApproval",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "requestId",
         "type": "uint256"
       }
     ],
-    "name": "transfer",
-    "outputs": [],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
