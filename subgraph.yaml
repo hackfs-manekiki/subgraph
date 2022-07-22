@@ -53,6 +53,10 @@ templates:
           handler: handleAddApprover
         - event: RemoveApprover(indexed address)
           handler: handleRemoveApprover
+        - event: AddMember(indexed address,string)
+          handler: handleAddMember
+        - event: RemoveMember(indexed address)
+          handler: handleRemoveMember
         - event: RequestApproval(uint256,indexed address,uint256,uint256)
           handler: handleNewRequest
         - event: ApprovalExecute(uint256,indexed address,uint256,uint256)

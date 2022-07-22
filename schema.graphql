@@ -4,6 +4,7 @@ type Vault @entity {
   owner: Bytes!
   admins: [Admin!]! @derivedFrom(field: "vault")
   approvers: [Approver!]! @derivedFrom(field: "vault")
+  members: [Member!]! @derivedFrom(field: "vault")
 }
 
 type Admin @entity {
@@ -18,6 +19,13 @@ type Approver @entity {
     address: Bytes!
     name: String!
     budget: BigInt!
+    vault: Vault!
+}
+
+type Member @entity {
+    id: String!
+    address: Bytes!
+    name: String!
     vault: Vault!
 }
 

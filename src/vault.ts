@@ -1,6 +1,6 @@
 import { Address } from '@graphprotocol/graph-ts'
-import { AddAdmin, AddApprover, ApprovalExecute, RemoveAdmin, RemoveApprover, RequestApproval } from '../generated/templates/Vault/Vault'
-import { Admin, Approver, Request } from '../generated/schema'
+import { AddAdmin, AddApprover, AddMember, ApprovalExecute, RemoveAdmin, RemoveApprover, RemoveMember, RequestApproval } from '../generated/templates/Vault/Vault'
+import { Admin, Approver, Member, Request } from '../generated/schema'
 import { store } from '@graphprotocol/graph-ts'
 
 export function handleAddAdmin(event: AddAdmin): void {
@@ -36,6 +36,23 @@ export function handleAddApprover(event: AddApprover): void {
 export function handleRemoveApprover(event: RemoveApprover): void {
     let id = `${event.address.toHexString()}-${event.params.approver.toHexString()}`
     store.remove('Approver', id)
+}
+
+export function handleAddMember(event: AddMember): void {
+    let id = `${event.address.toHexString()}-${event.params.member.toHexString()}`
+    let member = Member.load(id)
+    if (!member) {
+        member = new Member(id)
+    }
+    member.address = event.params.member
+    member.name = event.params.name
+    member.vault = event.address
+    member.save()
+}
+
+export function handleRemoveMember(event: RemoveMember): void {
+    let id = `${event.address.toHexString()}-${event.params.member.toHexString()}`
+    store.remove('Member', id)
 }
 
 export function handleNewRequest(event: RequestApproval): void {
