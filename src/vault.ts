@@ -1,4 +1,4 @@
-import { Address } from '@graphprotocol/graph-ts'
+import { ByteArray, Bytes, ethereum } from '@graphprotocol/graph-ts'
 import { AddAdmin, AddApprover, AddMember, ApprovalExecute, RemoveAdmin, RemoveApprover, RemoveMember, RequestApproval } from '../generated/templates/Vault/Vault'
 import { Admin, Approver, Member, Request } from '../generated/schema'
 import { store } from '@graphprotocol/graph-ts'
@@ -61,13 +61,16 @@ export function handleNewRequest(event: RequestApproval): void {
     if (!request) {
         request = new Request(id)
     }
+    let input = event.transaction.input
     request.requestId = event.params.requestId
-    request.data = event.transaction.input
+    request.input = input
     request.requester = event.params.requester
     request.value = event.params.value
     request.budget = event.params.budget
     request.isExecuted = false
     request.vault = event.address
+    request.createdTxhash = event.transaction.hash
+    request.createdTimestamp = event.block.timestamp
     request.save()
 }
 
@@ -80,5 +83,7 @@ export function handleExecuteRequest(event: ApprovalExecute): void {
     request.requestId = event.params.requestId
     request.executor = event.params.executor
     request.isExecuted = true
+    request.executedTxhash = event.transaction.hash
+    request.executedTimestamp = event.block.timestamp
     request.save()
 }

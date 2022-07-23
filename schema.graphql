@@ -38,5 +38,9 @@ type Request @entity {
     budget: BigInt!
     vault: Vault!
     executor: Bytes
-    data: Bytes
+    input: Bytes
+    createdTxhash: Bytes
+    executedTxhash: Bytes
+    createdTimestamp: BigInt
+    executedTimestamp: BigInt
 }
